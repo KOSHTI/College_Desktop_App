@@ -1,0 +1,12 @@
+# Pillow==9.1.1
+# PyMuPDF==1.22.4
+# pymongo==3.11.3
+# opencv-python==4.5.3.56
+# gridfs==3.1.0
+
+tkinter
+pymongo
+pillow
+opencv-python
+PyMuPDF
+gridfs
