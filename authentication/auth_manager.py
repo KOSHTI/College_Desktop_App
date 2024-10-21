@@ -9,10 +9,11 @@ def login_user(username, password):
     else:
         return False, "Invalid credentials"
 
-def register_user(username, password):
+def register_user(username, password, role):
     if db.users.find_one({"username": username}):
         return False, "Username already exists"
-    db.users.insert_one({"username": username, "password": password, "role": "student"})
+    db.users.insert_one({"username": username, "password": password, "role": role})
+    # db.users.insert_one({"username": username, "password": password, "role": "admin"})
     return True, "User registered successfully"
 
 def logout_user():
