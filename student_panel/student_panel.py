@@ -9,7 +9,7 @@ class StudentPanel:
         self.root.geometry("1200x800")
         self.student_id = student_id
         self.root.title("Student Panel")
-        self.bg_image = Image.open("static/background.jpg")  # Ensure path is correct
+        self.bg_image = Image.open("static/background.jpg")
         self.bg_label = None
         self.bg_photo = None  # To avoid garbage collection
         self.root.bind("<Configure>", self.resize_background)
