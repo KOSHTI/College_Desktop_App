@@ -6,7 +6,7 @@ from db import get_db
 from bson import ObjectId
 import os
 
-def upload_exam_submission(student_id, exam_id, file_path):
+def upload_exam_submission(student_id, exam_id, file_path, filename):
     try:
         if not os.path.exists(file_path):
             return False, "File does not exist."
@@ -32,6 +32,7 @@ def upload_exam_submission(student_id, exam_id, file_path):
             "student_id": student_id,
             "exam_id": exam_id,
             "file_id": file_id,
+            "filename": filename,
             "status": "submitted"
         })
         return True, "PDF uploaded successfully."

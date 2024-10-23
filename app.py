@@ -178,13 +178,14 @@ class MainApplication:
             if role == "student" and user_type == "student":
                 student_panel = StudentPanel(self.root, student_id=username)
                 print(f"Student Panel loaded for {username}")
-                print(student_panel)
+                # print(student_panel)
             elif role == "admin" and user_type == "admin":
                 admin_panel = AdminPanel(self.root, admin_id=username)
                 print(f"Admin Panel loaded for {username}")
-                print(admin_panel)
+                # print(admin_panel)
             else:
                 messagebox.showerror("Login Failed", f"Invalid role for {user_type} login.")
+                self.load_main_screen()
         else:
             messagebox.showerror("Login Failed", f"Invalid {user_type} credentials.")
 
