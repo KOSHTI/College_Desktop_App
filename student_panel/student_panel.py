@@ -1,3 +1,4 @@
+import os
 import tkinter as tk
 from tkinter import filedialog, messagebox
 from PIL import Image, ImageTk
@@ -47,7 +48,7 @@ class StudentPanel:
         self.check_status_button.place(relx=0.5, rely=0.4, anchor="center", width=300, height=50)
 
         # Logout button (aligned to the top right)
-        self.logout_button = tk.Button(self.root, text="Logout", font=("Arial", 12), bg="#FF5733", fg="white", command=self.logout)
+        self.logout_button = tk.Button(self.root, text="Logout", font=("Arial", 12,"bold"), bg="#FF5733", fg="white", command=self.logout)
         self.logout_button.place(relx=0.9, rely=0.05, anchor="ne", width=100, height=30)
 
     def resize_student_panel(self, event):
@@ -70,7 +71,8 @@ class StudentPanel:
     def upload_exam_pdf(self):
         file_path = filedialog.askopenfilename(filetypes=[("PDF Files", "*.pdf")])
         exam_id = "exam1"  # Example exam ID
-        success, message = upload_exam_submission(self.student_id, exam_id, file_path)
+        filename = os.path.basename(file_path)
+        success, message = upload_exam_submission(self.student_id, exam_id, file_path,filename)
         if success:
             messagebox.showinfo("Success", message)
         else:
