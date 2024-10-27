@@ -61,3 +61,8 @@ media/
 # Windows
 Thumbs.db
 ehthumbs.db
+
+# Add specific files you want to ignore
+s3_utils.py
+test.py
+main.py

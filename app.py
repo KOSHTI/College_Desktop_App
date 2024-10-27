@@ -73,6 +73,8 @@ class MainApplication:
         self.admin_login_button = tk.Button(self.root, text="Admin Login", font=("Arial", 14, "bold"), bg="#FF6347", fg="white", command=self.load_admin_login)
         self.admin_login_button.place(relx=0.5, rely=0.5, anchor="center", width=200, height=50)
 
+        back_button = tk.Button(self.root, text="Exit", font=("Arial", 12, "bold"), bg="#fef9e7", fg="black", command=self.exit_screen)
+        back_button.place(relx=0.8, rely=0.7, anchor="se", width=100, height=30)
 
     def load_student_login(self):
         """Load the Student Login panel."""
@@ -137,6 +139,9 @@ class MainApplication:
         Signup_button = tk.Button(self.root, text="Sign up", font=("Arial", 10), fg="blue", command=self.load_registration)
         Signup_button.place(relx=0.5, rely=0.6, anchor="w")
 
+        back_button = tk.Button(self.root, text="Back", font=("Arial", 12, "bold"), bg="#e8f8f5", fg="black", command=self.load_main_screen)
+        back_button.place(relx=0.9, rely=0.07, anchor="ne", width=100, height=30)
+
     def create_registration_form(self):
         """Create registration form fields."""
         # Username
@@ -156,15 +161,18 @@ class MainApplication:
         # User type selection (Radio buttons)
         self.user_type_var = tk.StringVar(value=self.user_type)
 
-        student_radio = tk.Radiobutton(self.root, text="Student", variable=self.user_type_var, value="student", font=("Arial", 12), bg="#2C3333", fg="white")
+        student_radio = tk.Radiobutton(self.root, text="Student", variable=self.user_type_var, value="student", font=("Arial", 12, "bold"), bg="#fef9e7", fg="#212f3c")
         student_radio.place(relx=0.4, rely=0.5, anchor="w")
 
-        admin_radio = tk.Radiobutton(self.root, text="Admin", variable=self.user_type_var, value="admin", font=("Arial", 12), bg="#2C3333", fg="white")
+        admin_radio = tk.Radiobutton(self.root, text="Admin", variable=self.user_type_var, value="admin", font=("Arial", 12, "bold"), bg="#fef9e7", fg="#212f3c")
         admin_radio.place(relx=0.6, rely=0.5, anchor="w")
 
         # Register button
         self.register_button = tk.Button(self.root, text="Register", font=("Arial", 14), bg="#1E90FF", fg="white", command=self.register_user)
         self.register_button.place(relx=0.5, rely=0.5, anchor="center", width=150, height=40)
+
+        back_button = tk.Button(self.root, text="Back", font=("Arial", 12, "bold"), bg="#e8f8f5", fg="black", command=self.load_main_screen)
+        back_button.place(relx=0.9, rely=0.07, anchor="ne", width=100, height=30)
 
     def authenticate(self, user_type):
         """Authenticate the student or admin user and load the respective panel."""
@@ -208,6 +216,12 @@ class MainApplication:
         """Remove all widgets from the window."""
         for widget in self.root.winfo_children():
             widget.destroy()
+
+    def exit_screen(self):
+        """Close the application."""
+        confirm_logout = messagebox.askyesno("Logout", "Are you sure you want to EXIT...??")
+        if confirm_logout:
+            self.root.destroy()
 
 if __name__ == "__main__":
     root = tk.Tk()
