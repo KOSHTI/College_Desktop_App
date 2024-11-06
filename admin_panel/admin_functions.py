@@ -1,6 +1,5 @@
 import os
 from bson.objectid import ObjectId
-import fitz  # PyMuPDF for reading PDFs
 import gridfs
 import gridfs.errors
 from db import get_db
@@ -11,6 +10,25 @@ PDF_STORAGE_FOLDER = os.path.join(os.path.dirname(__file__), "pdf_submissions")
 # Ensure the directory exists. If not, create it.
 if not os.path.exists(PDF_STORAGE_FOLDER):
     os.makedirs(PDF_STORAGE_FOLDER)
+
+def save_edited_pdf(admin_id, filename, edited_pdf_path):
+    db = get_db()
+    fs = gridfs.GridFS(db)
+
+    with open(edited_pdf_path, "rb") as pdf_file:
+        pdf_data = pdf_file.read()
+
+    # Store the edited PDF in GridFS
+    file_id = fs.put(pdf_data, filename=filename, metadata={"admin_id": admin_id, "status": "reviewed"})
+
+    # Update the original submission's status or create a new record as needed
+    db.submissions.update_one(
+        {"filename": filename, "status": "submitted"},
+        {"$set": {"status": "reviewed", "file_id": file_id}},
+        upsert=True
+    )
+
+    return file_id
 
 def review_submission(admin_id, filename):
     db = get_db()

@@ -66,3 +66,6 @@ ehthumbs.db
 s3_utils.py
 test.py
 main.py
+
+# Added exclusion
+pdf_submissions/
