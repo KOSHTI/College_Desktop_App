@@ -283,18 +283,24 @@ class AdminPanel:
             img_byte_arr = io.BytesIO()
             symbol_img.save(img_byte_arr, format="PNG")
             img_byte_arr = img_byte_arr.getvalue()
-
+            
             # Get coordinates and specify rectangle for image placement
             x, y = event.x, event.y
             page = self.current_pdf_doc[page_num]  # Access the current page from the open document
-
+            
             img_rect = fitz.Rect(x, y, x + symbol_img.width, y + symbol_img.height)
             page.insert_image(img_rect, stream=img_byte_arr)
 
-            # Display symbol on the GUI as reference
-            symbol_label = tk.Label(self.pdf_display_frame, image=ImageTk.PhotoImage(symbol_img))
-            symbol_label.image = symbol_img
+            # Display symbol instantly on the GUI
+            tk_image = ImageTk.PhotoImage(symbol_img)
+            symbol_label = tk.Label(self.pdf_display_frame, image=tk_image)
+            symbol_label.image = tk_image  # Keep a reference to avoid garbage collection
             symbol_label.place(x=x, y=y)
+
+            # Save references to prevent garbage collection of multiple images
+            if not hasattr(self, 'displayed_symbols'):
+                self.displayed_symbols = []
+            self.displayed_symbols.append(symbol_label)
 
             # Track symbol placement for future reference if needed
             if not hasattr(self, 'symbols_to_place'):
